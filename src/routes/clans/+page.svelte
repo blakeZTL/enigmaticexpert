@@ -14,7 +14,6 @@
 
 	let currentClans: apiClans[] = [];
 	let sortedCurrentClans: apiClans[] = [];
-
 	let currentActiveClanBattle: activeClanBattle | null = null;
 	let pinnedClan: pinnedClan | null = {
 		Clan: undefined,
@@ -28,12 +27,10 @@
 			data.activeClanBattle
 		]);
 		sortedCurrentClans = [...currentClans].sort((a, b) => b.Points - a.Points);
-		if (data.savedClan) {
-			let pinnedClanName = data.savedClan;
+		if (data.pinnedClan) {
+			let pinnedClanName = data.pinnedClan;
 			if (!$previouslySelectedClan) {
 				previouslySelectedClan.set(data.savedClan);
-			} else {
-				pinnedClanName = $previouslySelectedClan;
 			}
 			pinnedClan.Clan = currentClans.find((clan) => clan.Name === pinnedClanName) || undefined;
 			pinnedClan.Rank = {
@@ -71,6 +68,5 @@
 	</footer>
 </div>
 <div class="flex flex-col justify-center items-center mt-3 gap-3">
-	<span>Previously selected clan</span>
 	<PinnedClanCard {pinnedClan} />
 </div>

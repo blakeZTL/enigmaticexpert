@@ -5,6 +5,7 @@ import { invalidate } from '$app/navigation';
 
 export const load: LayoutServerLoad = async ({ fetch, cookies }) => {
 	let savedClan = '';
+	let pinnedClan = cookies.get('pinnedClan');
 	const getClans = async () => {
 		const res = await fetch(
 			'https://biggamesapi.io/api/clans?page=1&pageSize=1000&sort=Points&sortOrder=desc'
@@ -19,10 +20,15 @@ export const load: LayoutServerLoad = async ({ fetch, cookies }) => {
 		return data.data as activeClanBattle;
 	};
 	const setClan = () => {
-		const clan = cookies.get('previouslySelectedClan');
+		let clan = cookies.get('previouslySelectedClan');
 		console.debug('previouslySelectedClan', clan);
 		if (clan) {
 			savedClan = clan;
+		}
+		clan = cookies.get('pinnedClan');
+		console.debug('pinnedClan', clan);
+		if (clan) {
+			pinnedClan = clan;
 		}
 	};
 	setClan();
@@ -30,7 +36,8 @@ export const load: LayoutServerLoad = async ({ fetch, cookies }) => {
 	return {
 		clans: getClans(),
 		activeClanBattle: getActiveClanBattle(),
-		savedClan
+		savedClan,
+		pinnedClan
 	};
 };
 

@@ -6,11 +6,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 	if (clan) {
 		savedClan = clan;
 	}
+	const pinnedClan = cookies.get('pinnedClan');
 
-	return { savedClan };
+	return { savedClan, pinnedClan };
 };
-
-export async function _setPreviouslySelectedClan(clan: string) {
-	console.debug('previouslySelectedClan', clan);
-	document.cookie = `previouslySelectedClan=${clan}; path=/; max-age=31536000`;
-}

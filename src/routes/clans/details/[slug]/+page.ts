@@ -56,9 +56,14 @@ export const load: PageLoad = async ({ fetch, params }) => {
 	const userIds = clan.Members.map((member) => member.UserID);
 	const { users, avatars } = await getUserData(userIds);
 
+	const { pinnedClan } = (await fetch('/api/clan/pinClan').then((res) => res.json())) as {
+		pinnedClan: string;
+	};
+
 	return {
 		clan,
 		users,
-		avatars
+		avatars,
+		pinnedClan
 	};
 };

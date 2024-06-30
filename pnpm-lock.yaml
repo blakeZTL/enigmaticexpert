@@ -26,6 +26,9 @@ importers:
       '@fortawesome/svelte-fontawesome':
         specifier: ^0.2.2
         version: 0.2.2(@fortawesome/fontawesome-svg-core@6.5.2)(svelte@4.2.18)
+      svelte-gestures:
+        specifier: ^5.0.1
+        version: 5.0.1
     devDependencies:
       '@playwright/test':
         specifier: ^1.28.1
@@ -1643,6 +1646,9 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-gestures@5.0.1:
+    resolution: {integrity: sha512-GYsoL13/Zv8Ix09ySRDUiIegDP2asVgnK6GS5GmQsCtxbfZ1bvbtvPVBKc3Y8Hy90BTyAoZbfU6I4/cBRdiIBw==}
 
   svelte-hmr@0.16.0:
     resolution: {integrity: sha512-Gyc7cOS3VJzLlfj7wKS0ZnzDVdv3Pn2IuVeJPk9m2skfhcu5bq3wtIZyQGggr7/Iim5rH5cncyQft/kRLupcnA==}
@@ -3372,6 +3378,8 @@ snapshots:
       postcss-scss: 4.0.9(postcss@8.4.38)
     optionalDependencies:
       svelte: 4.2.18
+
+  svelte-gestures@5.0.1: {}
 
   svelte-hmr@0.16.0(svelte@4.2.18):
     dependencies:

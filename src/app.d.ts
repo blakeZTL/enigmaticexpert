@@ -6,4 +6,5 @@ declare namespace App {
 	// interface PageData {}
 	// interface Error {}
 	// interface Platform {}
+	/// <reference types="@sveltejs/kit" />
 }

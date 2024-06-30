@@ -16,7 +16,7 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
-	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+	import { faArrowLeft, faThumbTack } from '@fortawesome/free-solid-svg-icons';
 
 	export let data: PageData;
 
@@ -35,6 +35,7 @@
 		Points: null,
 		Diamonds: null
 	};
+	let pinnedClan = '';
 
 	$: clanMembers = apiClanMembers
 		.map((apiClanMember) => {
@@ -69,6 +70,28 @@
 		})
 		.sort((a, b) => b.Points - a.Points);
 
+	const onPinClanClick = async () => {
+		const url = '/api/clan/pinClan';
+		if (pinnedClan === data.clan.Name) {
+			await fetch(url, {
+				method: 'DELETE'
+			});
+			pinnedClan = '';
+		} else {
+			const body = {
+				clanName: data.clan.Name
+			};
+			await fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(body)
+			});
+			pinnedClan = data.clan.Name;
+		}
+	};
+
 	onMount(async () => {
 		activeClanBattleName = (await data.activeClanBattle).configName;
 		let clanBattle = data.clan.Battles[activeClanBattleName] as apiBattle;
@@ -79,6 +102,7 @@
 		apiClanMembers = [...apiClanMembers, { UserID: data.clan.Owner, JoinTime: 0 }];
 		clanUsersInfo = data.users;
 		userAvatars = data.avatars;
+		pinnedClan = data.pinnedClan;
 		clans = await data.clans;
 		clanRank = {
 			Points:
@@ -98,13 +122,23 @@
 		<img src={OrangeCatSpinner} alt="Orange Cat Loading Spinner" />
 	</div>
 {:then _}
-	<div class="flex flex-row gap-3 items-center justify-start ml-5 mt-3">
+	<div class="flex flex-row gap-3 items-center justify-between mx-5 mt-3">
 		<a href="/clans/details">
 			<button type="button">
 				<FontAwesomeIcon icon={faArrowLeft} />
 				<span>Select New Clan</span>
 			</button>
 		</a>
+
+		<button
+			type="button"
+			class="btn-primary flex flex-row items-center gap-2"
+			on:click={onPinClanClick}
+		>
+			<span><FontAwesomeIcon icon={faThumbTack} /></span><span
+				>{pinnedClan === data.clan.Name ? 'Unpin' : 'Pin'}</span
+			></button
+		>
 	</div>
 	<div class="flex flex-col gap-5">
 		<ClanDetailsCard
