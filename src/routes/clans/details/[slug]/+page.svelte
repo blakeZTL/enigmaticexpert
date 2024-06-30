@@ -1,0 +1,122 @@
+<script lang="ts">
+	import ClanDetailsPointContributions from '$lib/components/ClanDetailsPointContributions.svelte';
+	import ClanDetailsCard from '$lib/components/ClanDetailsCard.svelte';
+	import OrangeCatSpinner from '$lib/assets/OrangeCatSpinner.svg';
+	import type {
+		apiBattle,
+		apiDiamondContribution,
+		apiPointContribution,
+		apiRobloxUser,
+		apiClanMember,
+		apiClans,
+		clanMember,
+		apiRobloxUserAvatar,
+		clanRank
+	} from '$lib/types';
+	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
+	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
+	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
+	export let data: PageData;
+
+	const activeClanBattle = data.activeClanBattle;
+
+	let activeClanBattleName = '';
+	let points = 0;
+	let pointContributions: apiPointContribution[] = [];
+	let diamondContributions: apiDiamondContribution[] = [];
+	let clanUsersInfo: apiRobloxUser[] = [];
+	let apiClanMembers: apiClanMember[] = [];
+	let clanMembers: clanMember[] = [];
+	let userAvatars: apiRobloxUserAvatar[] = [];
+	let clans: apiClans[] = [];
+	let clanRank: clanRank = {
+		Points: null,
+		Diamonds: null
+	};
+
+	$: clanMembers = apiClanMembers
+		.map((apiClanMember) => {
+			let diamondContribution = diamondContributions.find(
+				(diamondContribution) => diamondContribution.UserID === apiClanMember.UserID
+			);
+			let user: apiRobloxUser | undefined = undefined;
+			if (clanUsersInfo) {
+				user = clanUsersInfo.find((user) => user.id === apiClanMember.UserID);
+			}
+			let avatar: string | undefined = undefined;
+			if (userAvatars) {
+				let userAvatar = userAvatars.find(
+					(userAvatar) => userAvatar.targetId === apiClanMember.UserID
+				);
+				if (userAvatar) {
+					avatar = userAvatar.imageUrl;
+				}
+			}
+
+			let pointContribution = pointContributions.find(
+				(pointContribution) => pointContribution.UserID === apiClanMember.UserID
+			);
+			const clanMember: clanMember = {
+				UserID: apiClanMember.UserID,
+				Points: pointContribution?.Points || 0,
+				Diamonds: diamondContribution ? diamondContribution.Diamonds : 0,
+				Name: user ? user.name : 'Unknown User',
+				Avatar: avatar || null
+			};
+			return clanMember;
+		})
+		.sort((a, b) => b.Points - a.Points);
+
+	onMount(async () => {
+		activeClanBattleName = (await data.activeClanBattle).configName;
+		let clanBattle = data.clan.Battles[activeClanBattleName] as apiBattle;
+		points = clanBattle.Points;
+		pointContributions = clanBattle.PointContributions;
+		diamondContributions = data.clan.DiamondContributions.AllTime.Data;
+		apiClanMembers = data.clan.Members;
+		apiClanMembers = [...apiClanMembers, { UserID: data.clan.Owner, JoinTime: 0 }];
+		clanUsersInfo = data.users;
+		userAvatars = data.avatars;
+		clans = await data.clans;
+		clanRank = {
+			Points:
+				clans
+					.sort((a, b) => b.Points - a.Points)
+					.findIndex((clan) => clan.Name === data.clan.Name) + 1 || null,
+			Diamonds:
+				clans
+					.sort((a, b) => b.DepositedDiamonds - a.DepositedDiamonds)
+					.findIndex((clan) => clan.Name === data.clan.Name) + 1 || null
+		};
+	});
+</script>
+
+{#await activeClanBattle}
+	<div class="flex justify-center items-center h-full">
+		<img src={OrangeCatSpinner} alt="Orange Cat Loading Spinner" />
+	</div>
+{:then _}
+	<div class="flex flex-row gap-3 items-center justify-start ml-5 mt-3">
+		<a href="/clans/details">
+			<button type="button">
+				<FontAwesomeIcon icon={faArrowLeft} />
+				<span>Select New Clan</span>
+			</button>
+		</a>
+	</div>
+	<div class="flex flex-col gap-5">
+		<ClanDetailsCard
+			clan={data.clan}
+			activeClanBattle={data.activeClanBattle}
+			{points}
+			{clanRank}
+		/>
+		{#if clanMembers.length > 0}
+			<div class="mx-3 mb-3">
+				<ClanDetailsPointContributions {clanMembers} tableHeight={'350px'} />
+			</div>
+		{/if}
+	</div>
+{/await}
