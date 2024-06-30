@@ -16,7 +16,7 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
-	import { faArrowLeft, faThumbTack } from '@fortawesome/free-solid-svg-icons';
+	import { faShield, faThumbTack } from '@fortawesome/free-solid-svg-icons';
 
 	export let data: PageData;
 
@@ -118,39 +118,46 @@
 </script>
 
 {#await activeClanBattle}
-	<div class="flex justify-center items-center h-full">
+	<div class="flex flex-col justify-center items-center h-full">
 		<img src={OrangeCatSpinner} alt="Orange Cat Loading Spinner" />
 	</div>
 {:then _}
-	<div class="flex flex-row gap-3 items-center justify-between mx-5 mt-3">
-		<a href="/clans/details">
-			<button type="button">
-				<FontAwesomeIcon icon={faArrowLeft} />
-				<span>Select New Clan</span>
-			</button>
-		</a>
+	<div class="flex flex-col justify-center items-center">
+		<div class="flex flex-row gap-3 items-center justify-between mx-5 mt-3 w-full">
+			<a href="/clans/details">
+				<button type="button">
+					<FontAwesomeIcon icon={faShield} />
+					<span>Select New Clan</span>
+				</button>
+			</a>
 
-		<button
-			type="button"
-			class="btn-primary flex flex-row items-center gap-2"
-			on:click={onPinClanClick}
-		>
-			<span><FontAwesomeIcon icon={faThumbTack} /></span><span
-				>{pinnedClan === data.clan.Name ? 'Unpin' : 'Pin'}</span
-			></button
-		>
-	</div>
-	<div class="flex flex-col gap-5">
-		<ClanDetailsCard
-			clan={data.clan}
-			activeClanBattle={data.activeClanBattle}
-			{points}
-			{clanRank}
-		/>
-		{#if clanMembers.length > 0}
-			<div class="mx-3 mb-3">
-				<ClanDetailsPointContributions {clanMembers} tableHeight={'350px'} />
-			</div>
-		{/if}
+			<button
+				type="button"
+				class="btn-primary flex flex-row items-center gap-2"
+				on:click={onPinClanClick}
+			>
+				<span><FontAwesomeIcon icon={faThumbTack} /></span><span
+					>{pinnedClan === data.clan.Name ? 'Unpin' : 'Pin'}</span
+				></button
+			>
+		</div>
+		<div class="flex flex-col gap-5 justify-center items-center w-full">
+			<ClanDetailsCard
+				clan={data.clan}
+				activeClanBattle={data.activeClanBattle}
+				{points}
+				{clanRank}
+			/>
+			{#if clanMembers.length > 0}
+				<div
+					class="card flex flex-col justify-start items-start p-2 bg-transparent w-full min-h-[20rem]"
+					style="height: calc(100vh - 29rem);"
+				>
+					<section class="w-full overflow-auto">
+						<ClanDetailsPointContributions {clanMembers} />
+					</section>
+				</div>
+			{/if}
+		</div>
 	</div>
 {/await}

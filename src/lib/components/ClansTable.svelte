@@ -8,6 +8,8 @@
 	import Loader from './Loader.svelte';
 
 	export let clans: apiClans[] = [];
+	export let showNumberOfClans = 10;
+	export let tableHeight = 'auto';
 
 	let showLoader = false;
 	let sortOrder = 'points';
@@ -31,7 +33,7 @@
 {#if showLoader}
 	<Loader />
 {:else}
-	<div class="flex flex-col w-[300px]">
+	<div class="flex flex-col w-full h-full">
 		<div class="flex-grow overflow-auto">
 			<table class="relative w-full">
 				<thead>
@@ -54,7 +56,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each clans.slice(0, 10) as clan, i}
+					{#each showNumberOfClans === 0 ? clans : clans.slice(0, showNumberOfClans) as clan, i}
 						<tr on:click={() => onClanSelect(clan.Name)}>
 							<td class="custom-cell">{i + 1}.</td>
 							<td class="text-left">{clan.Name}</td>

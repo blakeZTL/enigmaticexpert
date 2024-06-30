@@ -34,7 +34,7 @@ export const load: LayoutServerLoad = async ({ fetch, cookies }) => {
 	setClan();
 
 	return {
-		clans: getClans(),
+		clans: await getClans(),
 		activeClanBattle: getActiveClanBattle(),
 		savedClan,
 		pinnedClan

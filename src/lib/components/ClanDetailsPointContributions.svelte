@@ -54,54 +54,54 @@
 		<p class="text-lg">No data available</p>
 	</div>
 {:else}
-	<div class="flex flex-col items-center justify-center gap-3">
-		<input
-			class="input variant-glass-tertiary"
-			type="search"
-			name="member-search"
-			bind:value={memberSearch}
-			placeholder="Member Search..."
-		/>
+	<div class="flex flex-col items-center justify-center gap-3 w-full overflow-hidden">
+		<div class="sticky top-0 w-full">
+			<input
+				class="input variant-glass-tertiary"
+				type="search"
+				name="member-search"
+				bind:value={memberSearch}
+				placeholder="Member Search..."
+			/>
+		</div>
+		<div class="flex flex-col overflow-auto w-full" style="height: calc(100vh - 34rem)">
+			<table class="w-full h-full">
+				<thead>
+					<tr class="text-sm">
+						<th class="custom-header variant-glass-primary text-left"></th>
+						<th class="custom-header variant-glass-primary" on:click={onDiamondClick}
+							><FontAwesomeIcon icon={faGem} /></th
+						>
+						<th class="custom-header variant-glass-primary" on:click={onStarClick}
+							><FontAwesomeIcon icon={faStar} /></th
+						>
+					</tr>
+				</thead>
 
-		<div class="flex flex-col justify-center items-center w-full">
-			<div class="flex-grow overflow-auto w-full" style="max-height: {tableHeight}">
-				<table class="relative w-full">
-					<thead>
+				<tbody>
+					{#each filteredClanMembers as clanMember, i}
 						<tr class="text-sm">
-							<th class="custom-header variant-glass-primary text-left"></th>
-							<th class="custom-header variant-glass-primary" on:click={onDiamondClick}
-								><FontAwesomeIcon icon={faGem} /></th
+							<td class="custom-cell pl-5"
+								><span class="flex flex-row">
+									<p class="text-left">{i + 1}.</p>
+									{#if clanMember.Avatar}
+										<img
+											src={clanMember.Avatar}
+											alt="Clan Member Avatar"
+											class="h-[20px] w-[20px] ml-3"
+										/>
+									{/if}
+									<p class="text-left ml-3">
+										{clanMember.Name}
+									</p></span
+								></td
 							>
-							<th class="custom-header variant-glass-primary" on:click={onStarClick}
-								><FontAwesomeIcon icon={faStar} /></th
-							>
+							<td class="custom-cell">{convertNumberToMultiples(clanMember.Diamonds)}</td>
+							<td class="custom-cell">{convertNumberToMultiples(clanMember.Points)}</td>
 						</tr>
-					</thead>
-					<tbody>
-						{#each filteredClanMembers as clanMember, i}
-							<tr class="text-sm">
-								<td class="custom-cell pl-5"
-									><span class="flex flex-row">
-										<p class="text-left">{i + 1}.</p>
-										{#if clanMember.Avatar}
-											<img
-												src={clanMember.Avatar}
-												alt="Clan Member Avatar"
-												class="h-[20px] w-[20px] ml-3"
-											/>
-										{/if}
-										<p class="text-left ml-3">
-											{clanMember.Name}
-										</p></span
-									></td
-								>
-								<td class="custom-cell">{convertNumberToMultiples(clanMember.Diamonds)}</td>
-								<td class="custom-cell">{convertNumberToMultiples(clanMember.Points)}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
+					{/each}
+				</tbody>
+			</table>
 		</div>
 	</div>
 {/if}
@@ -112,9 +112,10 @@
 	}
 	.custom-header {
 		position: sticky;
-		top: 0;
 		padding-left: 1rem;
 		padding-right: 1rem;
+		top: 0;
+		z-index: 10;
 	}
 	thead {
 		height: 35px;

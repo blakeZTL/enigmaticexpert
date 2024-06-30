@@ -22,10 +22,9 @@
 
 	onMount(async () => {
 		await invalidate((url) => url.href.includes('/clans'));
-		[currentClans, currentActiveClanBattle] = await Promise.all([
-			data.clans,
-			data.activeClanBattle
-		]);
+		[currentActiveClanBattle] = await Promise.all([data.activeClanBattle]);
+
+		currentClans = data.clans;
 		sortedCurrentClans = [...currentClans].sort((a, b) => b.Points - a.Points);
 		if (data.pinnedClan) {
 			let pinnedClanName = data.pinnedClan;
@@ -52,6 +51,7 @@
 		<ActiveClanBattle activeClanBattle={currentActiveClanBattle} />
 	</div>
 {/if}
+
 <div class="card flex flex-col w-[300px] max-h-[600px] px-4 pb-2 gap-3 m-auto mt-2">
 	<header class="card-header justify-center flex items-center text-lg font-semibold">
 		Current Top 10

@@ -43,7 +43,7 @@
 	});
 </script>
 
-<div class="card flex flex-col justify-center items-center mx-8 mt-3">
+<div class="card flex flex-col justify-center items-center mx-8 mt-3 px-8">
 	<header class="card-header text-3xl font-bold">
 		<span class="flex flex-col items-center justify-center gap-3"
 			>{clan.Name}

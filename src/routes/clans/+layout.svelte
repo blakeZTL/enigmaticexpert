@@ -17,7 +17,10 @@
 	});
 </script>
 
-<slot />
+<div class="flex flex-col w-full justify-center items-center">
+	<slot />
+</div>
+
 <div class="fixed inset-x-0 bottom-0 flex flex-col bg-surface-100-800-token w-full">
 	<TabGroup
 		justify="justify-center"
