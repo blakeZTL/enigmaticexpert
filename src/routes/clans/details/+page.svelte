@@ -8,6 +8,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import OrangeCatSpinner from '$lib/assets/OrangeCatSpinner.svg';
 	import { invalidate } from '$app/navigation';
+	import { setPreviousltySelectedClan } from '$lib/utils';
 
 	export let data: PageData;
 
@@ -22,31 +23,16 @@
 		clanSearch = option.detail.value;
 		clanSeachInputIsFocused = false;
 	};
-	$: if (clanSearch) {
-		selectedClan.set(clanSearch);
-	}
+
 	const onSeeClanDetailsClick = (): void => {
 		gettingDetails = true;
 	};
-	const setPreviousltySelectedClan = (clanName: string): void => {
-		const url: string = '/api/clan/setClan';
-		const body = JSON.stringify({ clanName });
-		const headers = {
-			'Content-Type': 'application/json'
-		};
-		fetch(url, { method: 'POST', body, headers })
-			.then((response) => {
-				if (response.ok) {
-					console.log('Successfully set previously selected clan');
-				} else {
-					console.error('Failed to set previously selected clan');
-				}
-			})
-			.catch((error) => {
-				console.error('Failed to set previously selected clan', error);
-			});
-		previouslySelectedClan.set($selectedClan);
-	};
+
+	$: {
+		if (clanSearch) {
+			selectedClan.set(clanSearch);
+		}
+	}
 
 	onMount(async () => {
 		await invalidate((url) => url.href.includes('/clans'));
@@ -65,7 +51,7 @@
 	});
 	onDestroy(() => {
 		if ($selectedClan) {
-			setPreviousltySelectedClan($selectedClan);
+			setPreviousltySelectedClan(previouslySelectedClan, $selectedClan);
 		}
 		selectedClan.set('');
 	});

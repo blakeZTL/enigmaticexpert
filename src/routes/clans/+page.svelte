@@ -2,12 +2,12 @@
 	import type { LayoutServerData } from './$types';
 	import type { activeClanBattle, apiClans, pinnedClan } from '$lib/types';
 	import { onMount } from 'svelte';
-	import Loader from '$lib/components/Loader.svelte';
 	import { invalidate } from '$app/navigation';
 	import { clansLastUpdated, loading, previouslySelectedClan } from '../../stores';
 	import ClansTable from '$lib/components/ClansTable.svelte';
 	import ActiveClanBattle from '$lib/components/ActiveClanBattle.svelte';
 	import PinnedClanCard from '$lib/components/PinnedClanCard.svelte';
+	import Loader from '$lib/components/Loader.svelte';
 
 	export let data: LayoutServerData;
 	loading.set(false);
@@ -29,8 +29,13 @@
 		]);
 		sortedCurrentClans = [...currentClans].sort((a, b) => b.Points - a.Points);
 		if (data.savedClan) {
-			previouslySelectedClan.set(data.savedClan);
-			pinnedClan.Clan = currentClans.find((clan) => clan.Name === data.savedClan) || undefined;
+			let pinnedClanName = data.savedClan;
+			if (!$previouslySelectedClan) {
+				previouslySelectedClan.set(data.savedClan);
+			} else {
+				pinnedClanName = $previouslySelectedClan;
+			}
+			pinnedClan.Clan = currentClans.find((clan) => clan.Name === pinnedClanName) || undefined;
 			pinnedClan.Rank = {
 				Points: pinnedClan.Clan
 					? currentClans.sort((a, b) => b.Points - a.Points).indexOf(pinnedClan.Clan) + 1

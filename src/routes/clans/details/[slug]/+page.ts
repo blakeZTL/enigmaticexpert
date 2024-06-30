@@ -11,7 +11,6 @@ type RobloxBody = {
 export const load: PageLoad = async ({ fetch, params }) => {
 	const { slug } = params;
 	const getClanData = async (slug: string) => {
-		console.debug('getting data for clan:', slug);
 		let res = await fetch(`/api/clan/${slug}`);
 		const clan = (await res.json()) as apiClan;
 		const icon = clan.Icon.replace('rbxassetid://', '');

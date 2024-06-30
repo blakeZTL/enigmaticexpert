@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { apiClans } from '$lib/types';
-	import { convertNumberToMultiples } from '$lib/utils';
+	import { convertNumberToMultiples, setPreviousltySelectedClan } from '$lib/utils';
 	import { faGem, faStar, faUsers, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 	import { goto } from '$app/navigation';
+	import { previouslySelectedClan } from '../../stores';
 	import Loader from './Loader.svelte';
 
 	export let clans: apiClans[] = [];
@@ -13,6 +14,7 @@
 
 	const onClanSelect = (clanName: string) => {
 		showLoader = true;
+		setPreviousltySelectedClan(previouslySelectedClan, clanName);
 		goto(`/clans/details/${clanName}`);
 	};
 

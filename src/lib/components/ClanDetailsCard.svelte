@@ -38,8 +38,6 @@
 		placement: 'top'
 	};
 
-	$: console.debug('clanRank', clanRank);
-
 	onMount(async () => {
 		activeClanBattleName = (await activeClanBattle).configName;
 	});

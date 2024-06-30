@@ -1,3 +1,5 @@
+import type { Writable } from 'svelte/store';
+
 export const convertNumberToMultiples = (diamonds: number): string => {
 	if (diamonds >= 1000000000000) {
 		return `${(diamonds / 1000000000000).toFixed(2)}T`;
@@ -51,4 +53,27 @@ export const dynamicPlace = (place: number): string => {
 		default:
 			return `${place}th`;
 	}
+};
+
+export const setPreviousltySelectedClan = (
+	store: Writable<string>,
+	selectedClanName: string
+): void => {
+	const url: string = '/api/clan/setClan';
+	const body = JSON.stringify({ clanName: selectedClanName });
+	const headers = {
+		'Content-Type': 'application/json'
+	};
+	fetch(url, { method: 'POST', body, headers })
+		.then((response) => {
+			if (response.ok) {
+				console.log('Successfully set previously selected clan');
+			} else {
+				console.error('Failed to set previously selected clan');
+			}
+		})
+		.catch((error) => {
+			console.error('Failed to set previously selected clan', error);
+		});
+	store.set(selectedClanName);
 };
