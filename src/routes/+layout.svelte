@@ -1,6 +1,8 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
+	import { faHome } from '@fortawesome/free-solid-svg-icons';
+	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
@@ -18,7 +20,12 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<a href="/"><strong class="text-xl">EnigmaticExpert.gg</strong></a>
+				<a href="/">
+					<span class="flex flex-row items-center justify-start gap-3">
+						<FontAwesomeIcon icon={faHome} />
+						<strong class="text-xl">EnigmaticExpert.gg</strong>
+					</span>
+				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch />

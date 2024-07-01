@@ -4,12 +4,11 @@
 	import { loading } from '../../stores';
 
 	const clansButtonClicked = () => {
-		console.log('Clans button clicked');
 		loading.set(true);
 	};
 
 	const usersButtonClicked = () => {
-		console.log('Users button clicked');
+		loading.set(true);
 	};
 </script>
 
@@ -36,7 +35,7 @@
 				</button>
 				<button type="button" class="btn variant-ringed-primary" on:click={usersButtonClicked}>
 					<span><FontAwesomeIcon icon={faPeopleGroup} /></span>
-					<span>Users</span>
+					<span><a href="/users">Users</a> </span>
 				</button>
 			</div>
 		</footer>

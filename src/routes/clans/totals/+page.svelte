@@ -18,7 +18,7 @@
 	);
 </script>
 
-<div class="flex flex-col mx-3 my-2 items-center justify-center gap-2 max-w-[60%]">
+<div class="flex flex-col mx-3 my-2 items-center justify-center gap-2 max-w-[75%]">
 	<input
 		type="search"
 		name="clan-search"

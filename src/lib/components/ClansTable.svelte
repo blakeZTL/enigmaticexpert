@@ -9,10 +9,10 @@
 
 	export let clans: apiClans[] = [];
 	export let showNumberOfClans = 10;
-	export let tableHeight = 'auto';
 
 	let showLoader = false;
 	let sortOrder = 'points';
+	let hoveredRowIndex: number | null = null;
 
 	const onClanSelect = (clanName: string) => {
 		showLoader = true;
@@ -41,13 +41,17 @@
 						<th class="custom-header variant-glass-primary"></th>
 						<th class="custom-header variant-glass-primary"></th>
 						<th class="custom-header variant-glass-primary"><FontAwesomeIcon icon={faUsers} /></th>
-						<th class="custom-header variant-glass-primary" on:click={() => sortClans('diamonds')}
+						<th
+							class="custom-header variant-glass-primary cursor-pointer"
+							on:click={() => sortClans('diamonds')}
 							><FontAwesomeIcon icon={faGem} />
 							{#if sortOrder === 'diamonds'}
 								<FontAwesomeIcon icon={faArrowDown} class="text-xs " />
 							{/if}
 						</th>
-						<th class="custom-header variant-glass-primary" on:click={() => sortClans('points')}
+						<th
+							class="custom-header variant-glass-primary cursor-pointer"
+							on:click={() => sortClans('points')}
 							><FontAwesomeIcon icon={faStar} />
 							{#if sortOrder === 'points'}
 								<FontAwesomeIcon icon={faArrowDown} class="text-xs " />
@@ -57,7 +61,13 @@
 				</thead>
 				<tbody>
 					{#each showNumberOfClans === 0 ? clans : clans.slice(0, showNumberOfClans) as clan, i}
-						<tr on:click={() => onClanSelect(clan.Name)}>
+						<tr
+							on:mouseover={() => (hoveredRowIndex = i)}
+							on:mouseleave={() => (hoveredRowIndex = null)}
+							on:focus={() => (hoveredRowIndex = i)}
+							on:click={() => onClanSelect(clan.Name)}
+							class="cursor-pointer {hoveredRowIndex === i ? 'bg-secondary-500 text-white' : ''}"
+						>
 							<td class="custom-cell">{i + 1}.</td>
 							<td class="text-left">{clan.Name}</td>
 							<td class="custom-cell">{clan.Members + 1}</td>
