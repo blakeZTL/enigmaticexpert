@@ -64,7 +64,7 @@
 				placeholder="Member Search..."
 			/>
 		</div>
-		<div class="flex flex-col overflow-auto w-full" style="height: calc(100vh - 34rem)">
+		<div class="flex flex-col overflow-auto w-full">
 			<table class="w-full h-full">
 				<thead>
 					<tr class="text-sm">

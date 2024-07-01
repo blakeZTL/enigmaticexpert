@@ -51,8 +51,11 @@
 		<ActiveClanBattle activeClanBattle={currentActiveClanBattle} />
 	</div>
 {/if}
-
-<div class="card flex flex-col w-[300px] max-h-[600px] px-4 pb-2 gap-3 m-auto mt-2">
+<div class="flex flex-col justify-center items-center mt-3 gap-3">
+	<PinnedClanCard {pinnedClan} />
+	<p class="font-light"><i>You can pin/unpin a clan from it's details page</i></p>
+</div>
+<div class="card flex flex-col w-[300px] px-4 pb-2 gap-3 m-auto mt-2">
 	<header class="card-header justify-center flex items-center text-lg font-semibold">
 		Current Top 10
 	</header>
@@ -66,8 +69,4 @@
 	<footer class="card-footer flex justify-center">
 		<i class=" text-xs">Last Update: {$clansLastUpdated.toLocaleString()}</i>
 	</footer>
-</div>
-<div class="flex flex-col justify-center items-center mt-3 gap-3">
-	<PinnedClanCard {pinnedClan} />
-	<p class="font-light"><i>You can pin/unpin a clan from it's details page</i></p>
 </div>

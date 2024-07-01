@@ -151,7 +151,6 @@
 			{#if clanMembers.length > 0}
 				<div
 					class="card flex flex-col justify-start items-start p-2 bg-transparent w-full min-h-[20rem]"
-					style="height: calc(100vh - 29rem);"
 				>
 					<section class="w-full overflow-auto">
 						<ClanDetailsPointContributions {clanMembers} />

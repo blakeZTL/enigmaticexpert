@@ -17,7 +17,7 @@
 	});
 </script>
 
-<div class="flex flex-col w-full justify-center items-center">
+<div class="flex flex-col w-full justify-center items-center overflow-auto mb-[100px]">
 	<slot />
 </div>
 
@@ -29,7 +29,7 @@
 		flex="flex-1 lg:flex-none"
 		rounded=""
 		border=""
-		class="bg-surface-100-800-token w-full"
+		class="bg-surface-100-800-token w-full text-sm"
 	>
 		<TabAnchor href="/clans" selected={$page.url.pathname === '/clans'}>
 			<svelte:fragment slot="lead"><FontAwesomeIcon icon={faShield} /></svelte:fragment>

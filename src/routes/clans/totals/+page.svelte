@@ -27,7 +27,7 @@
 		bind:value={searchClanInput}
 	/>
 	<div
-		class="card flex flex-col justify-center items-center p-2 bg-transparent w-full"
+		class="card flex flex-col justify-center items-center p-2 bg-transparent w-full min-w-[275px] p-4"
 		style="height: calc(100vh - 15rem);"
 	>
 		<section class="w-full overflow-auto">
