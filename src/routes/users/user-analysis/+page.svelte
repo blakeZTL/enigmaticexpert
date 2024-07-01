@@ -68,9 +68,9 @@
 </script>
 
 {#if clanData.length < 1 || !userData}
-	<div class="flex flex-col justify-center items-center gap-3 p-5 max-w-[80%]">
-		<div class="card flex flex-col justify-center items-center gap-3 p-3">
-			<header class="cared-header text-xl font-semibold">
+	<div class="flex flex-col justify-center items-center p-5 max-w-[80%]">
+		<div class="card flex flex-col justify-center items-center px-6 pt-4 gap-4">
+			<section class="text-xl font-semibold">
 				<div class="flex flex-col justify-start items-start w-full">
 					<span>
 						<FontAwesomeIcon icon={faSearch} />
@@ -78,19 +78,19 @@
 					</span>
 					<p class="text-center w-full font-light text-base">(not display name)</p>
 				</div>
-			</header>
+			</section>
 			<section class="w-full">
 				<input type="search" placeholder="Search users..." class="input" bind:value={userSearch} />
 			</section>
-			<section class="text-xl font-semibold">
-				<div class="flex flex-col justify-start items-start w-full">
-					<span class="flex flex-row gap-2 items-center">
+			<section class="mt-2">
+				<div class="flex flex-col justify-start items-start w-full gap-2">
+					<span class="flex flex-row gap-2 items-center text-xl font-semibold">
 						<FontAwesomeIcon icon={faShield} />
 						<p>Enter clan names</p>
 					</span>
-					<p class="text-center w-full font-light text-base">Press <i>ENTER/RETURN</i> to select</p>
+					<p class="text-center w-full font-light text-sm">Press <i>ENTER/RETURN</i> to select</p>
 
-					<InputChip bind:value={inputClans} name="clan-chips" placeholder="Input clan name"
+					<InputChip bind:value={inputClans} name="clan-chips" placeholder="Enter clan names..."
 					></InputChip>
 				</div>
 			</section>

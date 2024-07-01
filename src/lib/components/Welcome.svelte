@@ -40,7 +40,7 @@
 				</button>
 				<button type="button" class="btn variant-ringed-primary" on:click={usersButtonClicked}>
 					<span><FontAwesomeIcon icon={faPeopleGroup} /></span>
-					<span><a href="/users">Users</a> </span>
+					<span><a href="/users/user-analysis">Users</a> </span>
 				</button>
 			</div>
 		</footer>
