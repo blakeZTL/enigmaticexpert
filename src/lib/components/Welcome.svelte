@@ -2,6 +2,7 @@
 	import { faPeopleGroup, faShield } from '@fortawesome/free-solid-svg-icons';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 	import { loading } from '../../stores';
+	import { onMount } from 'svelte';
 
 	const clansButtonClicked = () => {
 		loading.set(true);
@@ -10,6 +11,10 @@
 	const usersButtonClicked = () => {
 		loading.set(true);
 	};
+
+	onMount(() => {
+		// TODO: Implement a way to get the user's avatar
+	});
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center my-1">
