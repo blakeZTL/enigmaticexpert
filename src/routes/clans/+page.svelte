@@ -69,4 +69,5 @@
 </div>
 <div class="flex flex-col justify-center items-center mt-3 gap-3">
 	<PinnedClanCard {pinnedClan} />
+	<p class="font-light"><i>You can pin/unpin a clan from it's details page</i></p>
 </div>
