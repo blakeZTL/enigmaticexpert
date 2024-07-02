@@ -97,7 +97,7 @@
 			<footer class="card-footer">
 				<button
 					type="button"
-					class="btn variant-ringed-success text-white"
+					class="btn variant-filled-success text-white"
 					disabled={userSearch.length === 0 || inputClans.length === 0}
 					on:click={handleSearch}>Search</button
 				>
@@ -106,7 +106,7 @@
 	</div>
 {/if}
 {#if clanData.length > 0 && userData}
-	<button class="btn variant-ringed-warning my-4" on:click={resetForm}>Reset</button>
+	<button class="btn variant-filled-warning my-4" on:click={resetForm}>Reset</button>
 	<div class="flex flex-col items-center justify-center gap-4">
 		{#each clanData as clan}
 			<UserAnalysisCard clanData={clan} {userData} />

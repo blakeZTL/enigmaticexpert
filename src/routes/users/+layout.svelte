@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 </script>
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-center items-center mb-[150px]">
 	<slot />
 </div>
 <div class="fixed inset-x-0 bottom-0 flex flex-col bg-surface-100-800-token w-full">
@@ -16,7 +16,7 @@
 		flex="flex-1 lg:flex-none"
 		rounded=""
 		border=""
-		class="bg-surface-100-800-token w-full"
+		class="bg-surface-100-800-token w-full text-sm"
 	>
 		<TabAnchor href="/users/user-analysis" selected={$page.url.pathname === '/users/user-analysis'}>
 			<svelte:fragment slot="lead"><FontAwesomeIcon icon={faChartSimple} /></svelte:fragment>
