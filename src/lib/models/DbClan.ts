@@ -31,7 +31,6 @@ export default class DbClan {
 		let time = 0;
 		try {
 			const dateTimeStamp = id.toString().split('||')[1];
-			console.debug('dateTimeStamp: ', dateTimeStamp);
 			time = dateToUnix(new Date(dateTimeStamp));
 		} catch (error) {
 			console.error('Error in parseIdToNumber parsing: ', id);
