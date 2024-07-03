@@ -19,6 +19,17 @@ export const unixToDate = (unix: number): Date => {
 	return date;
 };
 
+export const dateToUnix = (date: Date): number => {
+	let unix = 0;
+	try {
+		unix = date.getTime() / 1000;
+	} catch (error) {
+		console.error('Error in dateToUnix parsing: ', date);
+		console.error(error);
+	}
+	return unix;
+};
+
 export const nowIsCurrent = (startTime: number, finishTime: number): boolean => {
 	return Date.now() >= startTime * 1000 && Date.now() <= finishTime * 1000;
 };
