@@ -83,12 +83,6 @@
 				<p>
 					{convertNumberToMultiples(clan.DepositedDiamonds)}
 				</p>
-				<button
-					type="button"
-					on:click={() => {
-						goto($page.url + '/visualize');
-					}}><FontAwesomeIcon icon={faEye} class="text-sm" /></button
-				>
 			</section>
 			<section class="flex items-center gap-3" use:popup={medalsPopup}>
 				<FontAwesomeIcon icon={faMedal} />
