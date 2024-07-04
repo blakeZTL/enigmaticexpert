@@ -16,7 +16,9 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
-	import { faShield, faThumbTack } from '@fortawesome/free-solid-svg-icons';
+	import { faEye, faShield, faThumbTack } from '@fortawesome/free-solid-svg-icons';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	export let data: PageData;
 
@@ -141,13 +143,23 @@
 				></button
 			>
 		</div>
-		<div class="flex flex-col gap-5 justify-center items-center w-full">
+		<div class="flex flex-col gap-0 justify-center items-center w-full">
 			<ClanDetailsCard
 				clan={data.clan}
 				activeClanBattle={data.activeClanBattle}
 				{points}
 				{clanRank}
 			/>
+			<button
+				type="button"
+				class="mt-1"
+				on:click={() => {
+					goto($page.url + '/visualize');
+				}}
+				><FontAwesomeIcon icon={faEye} class="text-sm" /><span class="font-base ml-2"
+					>View Metrics over Time</span
+				></button
+			>
 			{#if clanMembers.length > 0}
 				<div
 					class="card flex flex-col justify-start items-start p-2 bg-transparent w-full min-h-[20rem]"

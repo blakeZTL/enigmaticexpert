@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { convertNumberToMultiples, stripHtml, dynamicPlace } from '$lib/utils.js';
-	import { faGem, faMedal, faPeopleGroup, faStar } from '@fortawesome/free-solid-svg-icons';
+	import { faEye, faGem, faMedal, faPeopleGroup, faStar } from '@fortawesome/free-solid-svg-icons';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 	import { popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import type { apiClan, activeClanBattle, clanRank } from '$lib/types';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	export let clan: apiClan;
 	export let activeClanBattle: Promise<activeClanBattle>;

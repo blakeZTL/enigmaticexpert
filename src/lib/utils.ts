@@ -1,14 +1,14 @@
 import type { Writable } from 'svelte/store';
 
-export const convertNumberToMultiples = (diamonds: number): string => {
+export const convertNumberToMultiples = (diamonds: number, digits: number = 2): string => {
 	if (diamonds >= 1000000000000) {
-		return `${(diamonds / 1000000000000).toFixed(2)}T`;
+		return `${(diamonds / 1000000000000).toFixed(digits)}T`;
 	} else if (diamonds >= 1000000000) {
-		return `${(diamonds / 1000000000).toFixed(2)}B`;
+		return `${(diamonds / 1000000000).toFixed(digits)}B`;
 	} else if (diamonds >= 1000000) {
-		return `${(diamonds / 1000000).toFixed(2)}M`;
+		return `${(diamonds / 1000000).toFixed(digits)}M`;
 	} else if (diamonds >= 1000) {
-		return `${(diamonds / 1000).toFixed(2)}K`;
+		return `${(diamonds / 1000).toFixed(digits)}K`;
 	} else {
 		return `${diamonds}`;
 	}
@@ -17,6 +17,17 @@ export const convertNumberToMultiples = (diamonds: number): string => {
 export const unixToDate = (unix: number): Date => {
 	const date = new Date(unix * 1000);
 	return date;
+};
+
+export const dateToUnix = (date: Date): number => {
+	let unix = 0;
+	try {
+		unix = date.getTime() / 1000;
+	} catch (error) {
+		console.error('Error in dateToUnix parsing: ', date);
+		console.error(error);
+	}
+	return unix;
 };
 
 export const nowIsCurrent = (startTime: number, finishTime: number): boolean => {
