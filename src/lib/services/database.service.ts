@@ -6,14 +6,13 @@ export const collections: { clans?: mongoDB.Collection } = {};
 
 export async function connectToDatabase() {
 	dotenv.config();
-
-	client = new mongoDB.MongoClient(import.meta.env.VITE_ATLAS_URI);
+	client = new mongoDB.MongoClient(process.env.ATLAS_URI || '');
 
 	await client.connect();
 
-	const db: mongoDB.Db = client.db(import.meta.env.VITE_CLAN_BATTLE_DB_NAME);
+	const db: mongoDB.Db = client.db(process.env.CLAN_BATTLE_DB_NAME);
 
-	const clansCollection: mongoDB.Collection = db.collection(import.meta.env.VITE_CLANS_DB_NAME);
+	const clansCollection: mongoDB.Collection = db.collection(process.env.CLANS_DB_NAME || '');
 
 	collections.clans = clansCollection;
 }
